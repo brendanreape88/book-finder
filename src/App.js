@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import './Header.js'
-import './Search/Search.js'
-import './Filter/Filter.js'
-import './BookList/BookList.js'
+import Header from './Header/Header'
+import Search from './Search/Search'
+import Filter from './Filter/Filter'
+import BookList from './BookList/BookList'
 
 function App() {
   return (
