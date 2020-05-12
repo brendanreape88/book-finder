@@ -18,11 +18,11 @@ const exampleFetch = 'https://www.googleapis.com/books/v1/volumes?q=flowers+inau
 
 class App extends React.Component {
   
-  state = {
-    search: "",
-    /*"print type": "",
-    "book type": "",*/
-    "book data": {}
+  constructor() {
+    super()
+    this.state = {
+      bookData: {}
+    }
   }
 
   componentDidMount() {
@@ -34,8 +34,8 @@ class App extends React.Component {
       return res.json();
     })
     .then(data => {
-      console.log(data)
-      this.setState({ "book data": data })
+      this.setState({ bookData: data })
+      console.log(this.state.bookData)
       /*this.props.handleSomething(something)*/
     })
     .catch(err => {
@@ -45,7 +45,7 @@ class App extends React.Component {
     });
   }
 
-  handleSearch(event) {
+  /*handleSearch(event) {
     const {name, value} = event.target
     this.setState({ search: value })
   }
@@ -58,31 +58,34 @@ class App extends React.Component {
   handleBookType(event) {
     const {name, value} = event.target
     this.setState({ "book type": value })
-  }
+  }*/
 
   render(){
-    const error = this.state.error
+    /*const error = this.state.error
           ? <div className="error">{this.state.error}</div>
-          : " ";
+          : " ";*/
     
-    const title = this.state["book data"].items.volumeInfo.title;
-    const authors = this.state["book data"].items.volumeInfo.authors;
-    const amount = this.state["book data"].items.saleInfo.retailPrice.amount;
-    const currency = this.state["book data"].items.saleInfo.retailPrice.currencyCode;
-    const description = this.state["book data"].items.volumeInfo.description;
+        const title = this.state.bookData.items.volumeInfo.title;
+        const authors = this.state.bookData.items.volumeInfo.authors;
+        const amount = this.state.bookData.items.saleInfo.retailPrice.amount;
+        const currency = this.state.bookData.items.saleInfo.retailPrice.currencyCode;
+        const description = this.state.bookData.items.volumeInfo.description;*/
+        
+        const book = this.props.state.bookData
+            .map(<Book
+                title={title}
+                authors={authors}
+                amount={amount}
+                currency={currency}
+                description={description} />)
 
     return (
       <div>
         <Header />
         <Search />
         <Filter />
-        { error }
-        <BookList
-          title={title}
-          authors={authors}
-          amount={amount}
-          currency={currency}
-          description={description}/>
+        <BookList bookData={this.state.bookData}/>
+        {book}
       </div>
     );
   }
